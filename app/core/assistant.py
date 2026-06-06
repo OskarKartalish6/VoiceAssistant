@@ -1,8 +1,5 @@
 #Assistant's Main Loop
-from app.audio.recorder import Recorder
-from app.audio.stt import SpeechToText
-from app.audio.tts import TextToSpeech
-from app.core.router import CommandRouter
+
 
 class Assistant:
     stop_words = ("пока",

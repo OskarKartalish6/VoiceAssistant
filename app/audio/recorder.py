@@ -11,7 +11,7 @@ class Recorder:
         samplerate: int = 16_000,
         channels: int = 1,
         dtype: str = "int16",
-        blocksize: int = 16_000,
+        blocksize: int = 8_000,
     ) -> None:
         self.samplerate = samplerate
         self.channels = channels
@@ -24,6 +24,10 @@ class Recorder:
             print(f"Recorder status: {status}")
 
         self._audio_queue.put(bytes(indata))
+
+    def clear(self) -> None:
+        while not self._audio_queue.empty():
+            self._audio_queue.get_nowait()
 
     def listen(self) -> Generator[bytes, None, None]:
         with sd.RawInputStream(

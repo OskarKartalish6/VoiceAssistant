@@ -24,7 +24,7 @@ class Browserskill(Skill):
                 url = "https://www.google.com"
 
             webbrowser.open(url)
-            return f"Opening {url}"
+            return f"Opening {text}"
 
         def _find_known_site(self, text: str) -> str | None:
             for site_name, url in self.sites.items():

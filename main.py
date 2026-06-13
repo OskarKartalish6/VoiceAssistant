@@ -6,6 +6,7 @@ from app.core.router import CommandRouter
 from app.skills.browser_skill import Browserskill
 from app.skills.time_skill import TimeSkill
 from app.skills.weather_skil import WeatherSkill
+from app.skills.system_skill import SystemSkill
 
 
 def main():
@@ -17,7 +18,8 @@ def main():
         skills=[
             TimeSkill(),
             Browserskill(),
-            WeatherSkill()
+            WeatherSkill(),
+            SystemSkill(tts)
         ]
     )
 

@@ -7,6 +7,10 @@ class TextToSpeech:
                  volume: float = 1.0,
                  voice_language: str = "ru",
                  )->None:
+        self.rate = rate
+        self.volume = volume
+        self.voice_language = voice_language
+
         self.engine = pyttsx3.init()
         self.engine.setProperty("rate", rate)
         self.engine.setProperty("volume", volume)
@@ -36,4 +40,15 @@ class TextToSpeech:
         self.engine.say(text)
         self.engine.runAndWait()
         print("TTS done")
+
+    def setLowerRate(self, rate: int)->None:
+        self.engine.setProperty("rate", rate)
+    def setHigherRate(self, rate: int)->None:
+        self.engine.setProperty("rate", rate)
+
+    def setLowerVolume(self, volume: float)->None:
+        self.engine.setProperty("volume", volume)
+    def setHigherVolume(self, volume: float)->None:
+        self.engine.setProperty("volume", volume)
+
 

@@ -20,11 +20,11 @@ class SystemSkill(Skill):
     def handle(self, text: str) -> str:
         user_text = text.lower()
         if "команды" in user_text:
-            return ("команды" "проверка связи" "работаешь"
-                "говори быстрее" "говори медленнее"
-                "говори тише" "говори громче"
-                "увеличь громкость" "уменьши громкость"
-                "громче звук" "тише звук" "открой проводник")
+            return ("команды " "проверка связи " "работаешь "
+                "говори быстрее " "говори медленнее "
+                "говори тише " "говори громче "
+                "увеличь громкость " "уменьши громкость "
+                "громче звук " "тише звук " "открой проводник  ")
 
         if "проверка связи" in user_text:
             return "Я тут"
@@ -57,13 +57,13 @@ class SystemSkill(Skill):
             return f"звук поставлен на {new_volume}"
 
         if "открой проводник" in user_text:
-            subprocess.run(["open", "~"])
+            subprocess.run(["open", "/Users"])
             return "проводник открыт"
 
         return "Нету такой команды"
 
 
-    def change_volume(delta: int) -> int:
+    def change_volume(self, delta: int) -> int:
         result = subprocess.run(
             ["osascript", "-e", "output volume of (get volume settings)"],
             capture_output=True,

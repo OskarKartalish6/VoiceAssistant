@@ -7,6 +7,7 @@ from app.skills.browser_skill import Browserskill
 from app.skills.time_skill import TimeSkill
 from app.skills.weather_skil import WeatherSkill
 from app.skills.system_skill import SystemSkill
+from app.skills.timer_skill import TimerSkill
 
 
 def main():
@@ -19,7 +20,8 @@ def main():
             TimeSkill(),
             Browserskill(),
             WeatherSkill(),
-            SystemSkill(tts)
+            SystemSkill(tts),
+            TimerSkill()
         ]
     )
 

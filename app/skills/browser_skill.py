@@ -3,7 +3,7 @@ import webbrowser
 
 from app.skills.base import Skill
 
-class Browserskill(Skill):
+class BrowserSkill(Skill):
         sites = {
         "youtube": "https://www.youtube.com",
         "ютуб": "https://www.youtube.com",

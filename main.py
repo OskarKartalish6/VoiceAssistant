@@ -3,11 +3,12 @@ from app.audio.stt import SpeechToText
 from app.audio.tts import TextToSpeech
 from app.core.assistant import Assistant
 from app.core.router import CommandRouter
-from app.skills.browser_skill import Browserskill
+from app.skills.browser_skill import BrowserSkill
 from app.skills.time_skill import TimeSkill
 from app.skills.weather_skil import WeatherSkill
 from app.skills.system_skill import SystemSkill
 from app.skills.timer_skill import TimerSkill
+from app.skills.calculator_skill import CalculatorSkill
 
 
 def main():
@@ -18,10 +19,11 @@ def main():
     router = CommandRouter(
         skills=[
             TimeSkill(),
-            Browserskill(),
+            BrowserSkill(),
             WeatherSkill(),
             SystemSkill(tts),
-            TimerSkill()
+            TimerSkill(),
+            CalculatorSkill()
         ]
     )
 

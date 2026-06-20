@@ -9,6 +9,7 @@ from app.skills.weather_skil import WeatherSkill
 from app.skills.system_skill import SystemSkill
 from app.skills.timer_skill import TimerSkill
 from app.skills.calculator_skill import CalculatorSkill
+from app.skills.note_skill import NoteSkill
 
 
 def main():
@@ -23,7 +24,8 @@ def main():
             WeatherSkill(),
             SystemSkill(tts),
             TimerSkill(),
-            CalculatorSkill()
+            CalculatorSkill(),
+            NoteSkill()
         ]
     )
 

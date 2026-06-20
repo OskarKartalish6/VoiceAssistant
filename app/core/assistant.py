@@ -3,7 +3,8 @@ class Assistant:
     stop_words = ("пока",
             "заткнись",
             "иди нахуй",
-            "стоп")
+            "стоп",
+            "завали ебало")
 
     def __init__(self, recorder, stt, tts, router):
         self.recorder = recorder

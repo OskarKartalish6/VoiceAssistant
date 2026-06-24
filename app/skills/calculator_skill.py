@@ -55,13 +55,17 @@ def extract_expression(text: str) -> str:
 
 class CalculatorSkill(Skill):
 
-    def can_handle(self, text: str) -> bool:
-        phrases = ("сколько будет", "плюс",
-                   "минус", "умножить", "разделить",
-                   "степень")
-        return any(phrase in text for phrase in phrases)
+    INTENTS = [
+        "CALCULATE"
+    ]
 
-    def handle(self, text: str) -> str:
+    def handle(
+            self,
+            text: str,
+            intent: str,
+            command: str
+    ) -> str:
+
         expr = extract_expression(text)
 
         if not expr:

@@ -1,51 +1,59 @@
 from app.skills.base import Skill
-from app.datebase.db_manager import DatebaseManager
+from app.database.db_manager import DatabaseManager
+
 
 class NoteSkill(Skill):
+
+    INTENTS = [
+        "CREATE_NOTE",
+        "READ_NOTE",
+        "DELETE_NOTE",
+        "LIST_NOTES"
+    ]
     def __init__(self):
-        self.db = DatebaseManager()
 
-    def can_handle(self, text: str) -> bool:
-        phrases = ("создай заметку","добавь в заметку",
-                   "прочитай заметку", "все заметки",
-                   "удалить заметку")
+        self.db = DatabaseManager()
 
-        return any(phrase in text for phrase in phrases)
-    def handle(self, text: str) -> str:
-        if "создай заметку" in text:
-            name = text.strip().split()
-            if len(name) != 3:
-                return "Некоректное имя заметки"
-            self.db.create_note(name[-1])
-            return f"Заметка {name[-1]} создана"
+    def handle(self, text: str, intent: str, command: str) -> str:
 
-        if "добавь в заметку" in text:
-            parts = text.replace("добавь в заметку", "").strip().split(" ", 1)
+        if intent == "CREATE_NOTE":
 
-            name = parts[0]
-            content = parts[1] if len(parts) > 1 else ""
-            print(content)
+            name = text.replace(
+                command,
+                ""
+            ).strip()
 
-            self.db.add_content(name, content)
-            return f"Добавлено в {name}"
+            self.db.create_note(name)
 
-        if "прочитай заметку" in text:
-            name = text.strip().split()
-            if len(name) != 3:
-                return "Заметка не найдена"
-            content = self.db.get_note(name[-1])
-            return content
+            return f"Заметка {name} создана"
 
-        if "все заметки" in text:
-            names = self.db.get_notes()
-            if not names:
-                return "Заметок нет"
+        if intent == "READ_NOTE":
 
-            return ", ".join(names)
-        if "удалить заметку" in text:
-            name = text.split()[-1]
+            name = text.replace(
+                command,
+                ""
+            ).strip()
+
+            content = self.db.get_note(name)
+
+            return content or "Заметка не найдена"
+
+        if intent == "DELETE_NOTE":
+
+            name = text.replace(
+                command,
+                ""
+            ).strip()
+
             self.db.delete_note(name)
+
             return f"Заметка {name} удалена"
 
+        if intent == "LIST_NOTES":
 
+            notes = self.db.get_notes()
 
+            if not notes:
+                return "Заметок нет"
+
+            return ", ".join(notes)

@@ -1,0 +1,134 @@
+{
+  "CREATE_NOTE": [
+    "создай заметку",
+    "create note",
+    "створи нотатку"
+  ],
+
+  "READ_NOTE": [
+    "прочитай заметку",
+    "read note",
+    "прочитай нотатку"
+  ],
+
+  "DELETE_NOTE": [
+    "удали заметку",
+    "delete note",
+    "видали нотатку"
+  ],
+
+  "LIST_NOTES": [
+    "все заметки",
+    "покажи заметки",
+    "list notes",
+    "show notes"
+  ],
+
+  "SEARCH_GOOGLE": [
+    "найди в интернете",
+    "search google",
+    "find on google",
+    "знайди в інтернеті"
+  ],
+
+  "SEARCH_YOUTUBE": [
+    "найди в ютубе",
+    "search youtube",
+    "find on youtube",
+    "знайди на ютубі"
+  ],
+
+  "SEARCH_WIKIPEDIA": [
+    "найди в википедии",
+    "search wikipedia",
+    "find on wikipedia",
+    "знайди у вікіпедії"
+  ],
+
+
+  "SHOW_COMMANDS": [
+    "команды",
+    "show commands"
+  ],
+
+  "PING": [
+    "проверка связи",
+    "работаешь",
+    "are you working"
+  ],
+
+  "FASTER_SPEECH": [
+    "говори быстрее",
+    "speak faster"
+  ],
+
+  "SLOWER_SPEECH": [
+    "говори медленнее",
+    "speak slower"
+  ],
+
+  "LOUDER_TTS": [
+    "говори громче",
+    "увеличь громкость",
+    "speak louder"
+  ],
+
+  "QUIETER_TTS": [
+    "говори тише",
+    "уменьши громкость",
+    "speak quieter"
+  ],
+
+  "SYSTEM_VOLUME_UP": [
+    "громче звук",
+    "increase system volume"
+  ],
+
+  "SYSTEM_VOLUME_DOWN": [
+    "тише звук",
+    "decrease system volume"
+  ],
+
+  "OPEN_EXPLORER": [
+    "открой проводник",
+    "open explorer"
+  ],
+
+
+  "CALCULATE": [
+      "сколько будет"
+  ],
+
+
+  "GET_TIME": [
+    "время",
+    "который час",
+    "what time is it"
+  ],
+
+  "GET_WEEKDAY": [
+    "день недели",
+    "какой сегодня день недели",
+    "what day is today"
+  ],
+
+  "GET_DAY": [
+    "какое сегодня число",
+    "какой сегодня день месяца"
+  ],
+
+  "GET_DATE": [
+    "какая сегодня дата",
+    "сегодняшняя дата",
+    "what is today's date"
+  ],
+
+  "GET_WEATHER": [
+    "погода",
+    "погодка",
+    "weather",
+    "weather in",
+    "погода в",
+    "какая погода"
+  ]
+}

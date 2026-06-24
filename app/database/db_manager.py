@@ -1,6 +1,6 @@
 import psycopg
 
-class DatebaseManager:
+class DatabaseManager:
     def __init__(self):
         self.conn = psycopg.connect(
             host="localhost",

@@ -1,48 +1,42 @@
-#open WebSite
 import webbrowser
+import urllib.parse
 
 from app.skills.base import Skill
 
+
 class BrowserSkill(Skill):
-        sites = {
-        "youtube": "https://www.youtube.com",
-        "ютуб": "https://www.youtube.com",
 
-        "google": "https://www.google.com",
-        "гугл": "https://www.google.com",
+    INTENTS = [
+        "SEARCH_GOOGLE",
+        "SEARCH_YOUTUBE",
+        "SEARCH_WIKIPEDIA"
+    ]
+    URLS = {
 
-        "wikipedia": "https://www.wikipedia.org",
-        "википедия": "https://www.wikipedia.org"}
-        def can_handle(self, text: str) -> bool:
+        "SEARCH_GOOGLE":
+            "https://www.google.com/search?q={}",
 
-            return any(site in text for site in self.sites)
+        "SEARCH_YOUTUBE":
+            "https://www.youtube.com/results?search_query={}",
 
-        def handle(self, text: str) -> str:
-            url = self._find_known_site(text) or self._find_url(text)
+        "SEARCH_WIKIPEDIA":
+            "https://ru.wikipedia.org/wiki/Special:Search?search={}"
+    }
 
-            if url is None:
-                url = "https://www.google.com"
+    def handle(self, text: str, intent: str, command: str) -> str:
 
-            webbrowser.open(url)
-            return f"Opening {text}"
+        query = text.replace(
+            command,
+            ""
+        ).strip()
 
-        def _find_known_site(self, text: str) -> str | None:
-            for site_name, url in self.sites.items():
-                if site_name in text:
-                    return url
+        if not query:
+            return "Что нужно найти?"
 
-            return None
+        url = self.URLS[intent].format(
+            urllib.parse.quote(query)
+        )
 
-        def _find_url(self, text: str) -> str | None:
-            words = text.split()
+        webbrowser.open(url)
 
-            for word in words:
-                if "." not in word:
-                    continue
-
-                if word.startswith(("http://", "https://")):
-                    return word
-
-                return f"https://{word}"
-
-            return None
+        return f"Ищу {query}"

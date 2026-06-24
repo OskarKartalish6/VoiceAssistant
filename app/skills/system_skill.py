@@ -1,67 +1,100 @@
-#Open the program
 import subprocess
 
 from app.skills.base import Skill
 
 
 class SystemSkill(Skill):
-    commands = ("команды","проверка связи","работаешь",
-                "говори быстрее","говори медленнее",
-                "говори тише","говори громче",
-                "увеличь громкость","уменьши громкость",
-                "громче звук", "тише звук", "открой проводник")
+
+    INTENTS = [
+        "SHOW_COMMANDS",
+        "PING",
+        "FASTER_SPEECH",
+        "SLOWER_SPEECH",
+        "LOUDER_TTS",
+        "QUIETER_TTS",
+        "SYSTEM_VOLUME_UP",
+        "SYSTEM_VOLUME_DOWN",
+        "OPEN_EXPLORER"
+    ]
+    
     def __init__(self, tts):
         self.tts = tts
 
-    def can_handle(self, text: str) -> bool:
-        user_text = text.lower()
-        return any(command in user_text for command in self.commands)
+    def handle(
+            self,
+            text: str,
+            intent: str,
+            command: str
+    ):
 
-    def handle(self, text: str) -> str:
-        user_text = text.lower()
-        if "команды" in user_text:
-            return ("команды " "проверка связи " "работаешь "
-                "говори быстрее " "говори медленнее "
-                "говори тише " "говори громче "
-                "увеличь громкость " "уменьши громкость "
-                "громче звук " "тише звук " "открой проводник  ")
+        if intent == "SHOW_COMMANDS":
 
-        if "проверка связи" in user_text:
+            return (
+                "команды, проверка связи, работаешь, "
+                "говори быстрее, говори медленнее, "
+                "говори тише, говори громче, "
+                "громче звук, тише звук, "
+                "открой проводник"
+            )
+
+        if intent == "PING":
+
+            if "работаешь" in text:
+                return "Работаю"
+
             return "Я тут"
 
-        if "работаешь" in user_text:
-            return "Работаю"
+        if intent == "FASTER_SPEECH":
 
-        if "говори быстрее" in user_text:
-            self.tts.setHigherRate(self.tts.rate + 50)
+            self.tts.setHigherRate(
+                self.tts.rate + 50
+            )
+
             return "Буду говорить быстрее"
 
-        if "говори медленнее" in user_text:
-            self.tts.setLowerRate(self.tts.rate - 50)
+        if intent == "SLOWER_SPEECH":
+
+            self.tts.setLowerRate(
+                self.tts.rate - 50
+            )
+
             return "Буду говорить медленнее"
 
-        if "говори тише" in user_text or "уменьши громкость" in user_text:
-            self.tts.setLowerVolume(self.tts.volume - 0.5)
-            return "Буду говорить тише"
+        if intent == "LOUDER_TTS":
 
-        if "говори громче" in user_text or "увеличь громкость" in user_text:
-            self.tts.setHigherVolume(self.tts.volume + 0.5)
+            self.tts.setHigherVolume(
+                self.tts.volume + 0.2
+            )
+
             return "Буду говорить громче"
 
-        if "громче звук" in user_text:
-            new_volume = self.change_volume(10)
-            return f"звук поставлен на {new_volume}"
+        if intent == "QUIETER_TTS":
 
-        if "тише звук" in user_text:
-            new_volume = self.change_volume(-10)
-            return f"звук поставлен на {new_volume}"
+            self.tts.setLowerVolume(
+                self.tts.volume - 0.2
+            )
 
-        if "открой проводник" in user_text:
+            return "Буду говорить тише"
+
+        if intent == "SYSTEM_VOLUME_UP":
+
+            volume = self.change_volume(10)
+
+            return f"Системная громкость {volume}"
+
+        if intent == "SYSTEM_VOLUME_DOWN":
+
+            volume = self.change_volume(-10)
+
+            return f"Системная громкость {volume}"
+
+        if intent == "OPEN_EXPLORER":
+
             subprocess.run(["open", "/Users"])
-            return "проводник открыт"
 
-        return "Нету такой команды"
+            return "Проводник открыт"
 
+        return "Команда не поддерживается"
 
     def change_volume(self, delta: int) -> int:
         result = subprocess.run(

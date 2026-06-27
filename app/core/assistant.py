@@ -1,4 +1,6 @@
 #Assistant's Main Loop
+import time
+
 class Assistant:
     stop_words = ("пока",
             "заткнись",
@@ -11,16 +13,21 @@ class Assistant:
         self.stt = stt
         self.tts = tts
         self.router = router
-        self.running = True
         self.is_speaking = False
 
     def say(self, text: str) -> None:
         self.is_speaking = True
+        self.recorder.enabled = False
+        self.recorder.clear()
 
         self.tts.say(text)
 
-        self.is_speaking = False
+        time.sleep(2.0)
         self.recorder.clear()
+        self.stt.reset()
+
+        self.recorder.enabled = True
+        self.is_speaking = False
 
     def run(self) -> None:
         self.say("Assistant started")
@@ -32,7 +39,6 @@ class Assistant:
                 continue
 
             text = self.stt.recognize(audio_chunk)
-
             if not text:
                 continue
 
@@ -45,6 +51,5 @@ class Assistant:
                 break
 
             response = self.router.route(text)
-
             print(f"Assistant: {response}")
             self.say(response)

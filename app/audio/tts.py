@@ -50,5 +50,3 @@ class TextToSpeech:
         self.engine.setProperty("volume", volume)
     def setHigherVolume(self, volume: float)->None:
         self.engine.setProperty("volume", volume)
-
-

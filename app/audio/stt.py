@@ -22,6 +22,9 @@ class SpeechToText:
         self.model = Model(str(self.model_path))
         self.recognizer = KaldiRecognizer(self.model, self.samplerate)
 
+    def reset(self) -> None:
+        self.recognizer = KaldiRecognizer(self.model, self.samplerate)
+
     def recognize(self, audio_chunk: bytes) -> str | None:
         if self.recognizer.AcceptWaveform(audio_chunk):
             result = json.loads(self.recognizer.Result())

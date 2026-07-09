@@ -4,6 +4,7 @@ import re
 from words2numsrus import NumberExtractor
 
 from app.skills.base import Skill
+from app.auth.current_user import CurrentUser
 
 
 SAFE_OPERATORS = {
@@ -59,12 +60,9 @@ class CalculatorSkill(Skill):
         "CALCULATE"
     ]
 
-    def handle(
-            self,
-            text: str,
-            intent: str,
-            command: str
-    ) -> str:
+    def handle(self, text: str, intent: str, command: str) -> str:
+        if not CurrentUser.is_logged():
+            return "Войдите в акаунт"
 
         expr = extract_expression(text)
 

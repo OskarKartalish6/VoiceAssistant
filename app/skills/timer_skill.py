@@ -6,6 +6,7 @@ from threading import Timer
 
 import subprocess
 import re
+from app.auth.current_user import CurrentUser
 
 
 class TimerSkill(Skill):
@@ -21,6 +22,8 @@ class TimerSkill(Skill):
         self.timer = None
 
     def handle(self, text: str, intent: str, command: str):
+        if not CurrentUser.is_logged():
+            return "Войдите в акаунт"
 
         if intent == "CREATE_TIMER":
 

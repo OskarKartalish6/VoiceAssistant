@@ -1,6 +1,7 @@
 import subprocess
 
 from app.skills.base import Skill
+from app.auth.current_user import CurrentUser
 
 
 class SystemSkill(Skill):
@@ -20,12 +21,9 @@ class SystemSkill(Skill):
     def __init__(self, tts):
         self.tts = tts
 
-    def handle(
-            self,
-            text: str,
-            intent: str,
-            command: str
-    ):
+    def handle(self, text: str, intent: str, command: str):
+        if not CurrentUser.is_logged():
+            return "Войдите в акаунт"
 
         if intent == "SHOW_COMMANDS":
 

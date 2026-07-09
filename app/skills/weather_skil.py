@@ -2,6 +2,7 @@
 import requests
 
 from app.skills.base import Skill
+from app.auth.current_user import CurrentUser
 
 class WeatherSkill(Skill):
 
@@ -12,6 +13,8 @@ class WeatherSkill(Skill):
     url = "https://api.openweathermap.org/data/2.5/weather"
 
     def handle(self, text: str, intent: str, command: str) -> str:
+        if not CurrentUser.is_logged():
+            return "Войдите в акаунт"
 
         city = self.city_search(text)
 

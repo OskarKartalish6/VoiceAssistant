@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from app.skills.base import Skill
+from app.auth.current_user import CurrentUser
 
 
 class TimeSkill(Skill):
@@ -13,6 +14,8 @@ class TimeSkill(Skill):
     ]
 
     def handle(self, text: str, intent: str, command: str) -> str:
+        if not CurrentUser.is_logged():
+            return "Войдите в акаунт"
 
         if intent == "GET_TIME":
             now = datetime.now()

@@ -1,3 +1,4 @@
+from app.skills.auth_skill import AuthSkill
 from app.skills.note_skill import NoteSkill
 from app.skills.browser_skill import BrowserSkill
 from app.skills.timer_skill import TimerSkill
@@ -7,15 +8,17 @@ from app.skills.time_skill import TimeSkill
 from app.skills.weather_skil import WeatherSkill
 
 from app.core.intent_recognizer import IntentRecognizer
-
+from app.skills.logs_skill import LogsSkill
 
 class Router:
 
-    def __init__(self, tts):
+    def __init__(self, tts, auth, ui):
 
         self.recognizer = IntentRecognizer()
 
         skills = [
+            AuthSkill(auth, ui),
+            LogsSkill(ui),
             NoteSkill(),
             BrowserSkill(),
             TimerSkill(),
@@ -28,25 +31,18 @@ class Router:
         self.skills = {}
 
         for skill in skills:
-
             for intent in skill.INTENTS:
-
                 self.skills[intent] = skill
 
     def route(self, text: str):
-
-        intent, command = (
-            self.recognizer.recognize(text)
-        )
+        intent, command = self.recognizer.recognize(text)
 
         if not intent:
-
             return "Команда не распознана"
 
         skill = self.skills.get(intent)
 
         if not skill:
-
             return "Skill не найден"
 
         return skill.handle(

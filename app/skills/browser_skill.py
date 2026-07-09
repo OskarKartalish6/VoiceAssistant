@@ -2,7 +2,7 @@ import webbrowser
 import urllib.parse
 
 from app.skills.base import Skill
-
+from app.auth.current_user import CurrentUser
 
 class BrowserSkill(Skill):
 
@@ -24,6 +24,8 @@ class BrowserSkill(Skill):
     }
 
     def handle(self, text: str, intent: str, command: str) -> str:
+        if not CurrentUser.is_logged():
+            return "Войдите в акаунт"
 
         query = text.replace(
             command,

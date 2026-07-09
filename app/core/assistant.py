@@ -8,12 +8,13 @@ class Assistant:
             "стоп",
             "завали ебало")
 
-    def __init__(self, recorder, stt, tts, router):
+    def __init__(self, recorder, stt, tts, router, logger):
         self.recorder = recorder
         self.stt = stt
         self.tts = tts
         self.router = router
         self.is_speaking = False
+        self.logger = logger
 
     def say(self, text: str) -> None:
         self.is_speaking = True
@@ -50,6 +51,14 @@ class Assistant:
                 self.say("Assistant stopped")
                 break
 
-            response = self.router.route(text)
-            print(f"Assistant: {response}")
-            self.say(response)
+            try:
+
+                response = self.router.route(text)
+                self.logger.user.log(text, response)
+                print(f"Assistant: {response}")
+                self.say(response)
+
+            except Exception as e:
+
+                self.logger.system.log(text, e)
+                self.say("Произошла ошибка")

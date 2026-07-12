@@ -4,7 +4,7 @@ from tests.get_router import get_router
 def test_setTimer():
     router = get_router()
 
-    response = router.route("поставь таймер на 5 минут")
+    response = router.route("поставь таймер на 1 секунд")
 
     assert "Таймер поставлен на" in response
 

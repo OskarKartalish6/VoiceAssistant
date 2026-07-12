@@ -9,7 +9,7 @@ class WeatherSkill(Skill):
     INTENTS = [
         "GET_WEATHER"
     ]
-    API_KEY = "9274a692bbf9a3ca3fa94277a1e9ec18"
+    API_KEY = "API"
     url = "https://api.openweathermap.org/data/2.5/weather"
 
     def handle(self, text: str, intent: str, command: str) -> str:
